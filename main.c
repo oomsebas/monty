@@ -28,6 +28,7 @@ void match_parameter(char *s, unsigned int val, unsigned int linenum)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 		{NULL, NULL}
 	};
 	void (*f)(dlistint_t **stack, unsigned int line_number);

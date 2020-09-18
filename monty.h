@@ -61,4 +61,5 @@ void pint(dlistint_t **stack, __attribute__((unused))unsigned int num);
 void err(int error_code, ...);
 void err2(int error_code, ...);
 void string_err(int error_code, ...);
+void pop(stack_t **stack, unsigned int line_number);
 #endif

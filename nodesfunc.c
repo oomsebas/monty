@@ -34,3 +34,22 @@ void pint(dlistint_t **stack, unsigned int num)
 		err2(6, num);
 	printf("%d\n", (*stack)->n);
 }
+
+/**
+ * pop_top - removes  a node to the stack.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @line_number: Interger representing the line number of of the opcode.
+ */
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if (stack == NULL || *stack == NULL)
+		err2(7, line_number);
+
+	tmp = *stack;
+	*stack = tmp->next;
+	if (*stack != NULL)
+		(*stack)->prev = NULL;
+	free(tmp);
+}
