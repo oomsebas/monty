@@ -46,7 +46,7 @@ void pint(dlistint_t **stack, unsigned int num)
 }
 
 /**
- * pop_top - removes  a node to the stack.
+ * pop - removes  a node to the stack.
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @line_number: Interger representing the line number of of the opcode.
  */
