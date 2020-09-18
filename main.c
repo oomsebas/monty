@@ -11,7 +11,6 @@ int main(int argc, char **argv)
 	if (argc < 2 || argc > 2)
 		err(1);
 	read_textfile(argv[1]);
-	free_dlistint(stack);
 	return (0);
 }
 
