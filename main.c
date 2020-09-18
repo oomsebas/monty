@@ -1,5 +1,4 @@
 #include "monty.h"
-
 dlistint_t *stack = NULL;
 
 /**
@@ -13,6 +12,7 @@ int main(int argc, char **argv)
 	if (argc < 2 || argc > 2)
 		err(1);
 	read_textfile(argv[1]);
+	free_dlistint(stack);
 	return (0);
 }
 
@@ -32,6 +32,7 @@ void match_parameter(char *s, unsigned int val, unsigned int linenum)
 	};
 	void (*f)(dlistint_t **stack, unsigned int line_number);
 	int i = 0;
+
 
 	while (options[i].opcode != NULL)
 	{
@@ -56,7 +57,7 @@ void match_parameter(char *s, unsigned int val, unsigned int linenum)
  *@filename: Pointer to the file to read
  *Return: the number of characters
  */
-void  read_textfile(const char *filename)
+void  read_textfile(char *filename)
 {
 	int file_check;
 	FILE *fd;
@@ -102,6 +103,7 @@ void read_file(FILE *fd)
 		get_cmd(lineptr, i);
 	}
 	free(lineptr);
+	free_dlistint(stack);
 
 }
 
