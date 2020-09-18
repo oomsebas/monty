@@ -88,6 +88,7 @@ void read_file(FILE *fd)
 	int i;
 	char *lineptr;
 	size_t n;
+	ssize_t chars;
 
 	lineptr = NULL;
 	n = 0;
@@ -96,10 +97,12 @@ void read_file(FILE *fd)
 	{
 		err(2, "filename");
 	}
-	for (i = 1; getline(&lineptr, &n, fd) != EOF; i++)
+	for (i = 1; (chars = getline(&lineptr, &n, fd)) != EOF; i++)
 	{
 		if (lineptr == NULL)
 			err(4);
+		else if ((chars == 1) & (strcmp("\n",lineptr) == 0))
+			continue;
 		get_cmd(lineptr, i);
 	}
 	free(lineptr);
