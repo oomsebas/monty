@@ -32,6 +32,8 @@ void match_parameter(char *s, unsigned int val, unsigned int linenum)
 		{"add", add_nodes},
 		{"swap",swap_nodes},
 		{"nop",nop},
+		{"sub",sub_nodes},
+		{"div", div_nodes},
 		{NULL, NULL}
 	};
 	void (*f)(dlistint_t **stack, unsigned int line_number);
