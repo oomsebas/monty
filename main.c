@@ -1,6 +1,5 @@
 #include "monty.h"
 dlistint_t *stack = NULL;
-
 /**
  *main - main program
  *@argc: number of arguments passed fro command line
@@ -14,47 +13,6 @@ int main(int argc, char **argv)
 	read_textfile(argv[1]);
 	free_dlistint(stack);
 	return (0);
-}
-
-/**
- *match_parameter - find the function according the command
- *@s: the opcode tokenized to find the function to execute
- *@val: the value to oush to the stack
- *@linenum: the line number
- */
-void match_parameter(char *s, unsigned int val, unsigned int linenum)
-{
-	instruction_t  options[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
-		{"add", add_nodes},
-		{"swap",swap_nodes},
-		{"nop",nop},
-		{"sub",sub_nodes},
-		{"div", div_nodes},
-		{NULL, NULL}
-	};
-	void (*f)(dlistint_t **stack, unsigned int line_number);
-	int i = 0;
-
-
-	while (options[i].opcode != NULL)
-	{
-		if (strcmp(s, options[i].opcode) == 0)
-		{
-			f = options[i].f;
-			break;
-		}
-		i++;
-	}
-	if (options[i].opcode == NULL)
-		err(3, linenum, s);
-	if (strcmp("push", s) == 0)
-		f(&stack, val);
-	else
-		f(&stack, linenum);
 }
 
 /**
@@ -84,7 +42,7 @@ void  read_textfile(char *filename)
 
 }
 /**
- * read_file - open the file descriptor and reads line commands
+* read_file - open the file descriptor and reads line commands
  *@fd: path to the file to read
  *return: None
  */
@@ -127,7 +85,7 @@ void get_cmd(char *lineptr, unsigned int linenum)
 	char *delim;
 	char *opcode = NULL;
 	char *value = NULL;
-	int val = 0, i;
+	int val = 0, i,sign = 1;
 
 	delim = "\n ";
 	opcode = strtok(lineptr, delim);
@@ -139,6 +97,7 @@ void get_cmd(char *lineptr, unsigned int linenum)
 		if ((value != NULL) & (value[0] == '-'))
 		{
 			value = value + 1;
+			sign = -1;
 		}
 		if (value == NULL)
 			err(5, linenum);
@@ -150,7 +109,50 @@ void get_cmd(char *lineptr, unsigned int linenum)
 	}
 	if (value != NULL)
 	{
-		val = atoi(value);
+		val = atoi(value) * sign;
 	}
 	match_parameter(opcode, val, linenum);
+}
+
+/**
+ *match_parameter - find the function according the command
+ *@s: the opcode tokenized to find the function to execute
+ *@val: the value to oush to the stack
+ *@linenum: the line number
+ */
+void match_parameter(char *s, unsigned int val, unsigned int linenum)
+{
+	instruction_t  options[] = {
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"add", add_nodes},
+		{"swap",swap_nodes},
+		{"nop",nop},
+		{"sub",sub_nodes},
+		{"div", div_nodes},
+		{"mul", mul_nodes},
+		{"mod", mod_nodes},
+		{NULL, NULL}
+	};
+	void (*f)(dlistint_t **stack, unsigned int line_number);
+	int i = 0;
+
+
+	while (options[i].opcode != NULL)
+	{
+		if (strcmp(s, options[i].opcode) == 0)
+		{
+			f = options[i].f;
+			break;
+		}
+		i++;
+	}
+	if (options[i].opcode == NULL)
+		err(3, linenum, s);
+	if (strcmp("push", s) == 0)
+		f(&stack, val);
+	else
+		f(&stack, linenum);
 }
