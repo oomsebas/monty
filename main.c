@@ -126,7 +126,7 @@ void get_cmd(char *lineptr, unsigned int linenum)
 	delim = "\n ";
 	opcode = strtok(lineptr, delim);
 	if (opcode == NULL)
-		exit(2);
+		return;
 	value = strtok(NULL, delim);
 	if (strcmp(opcode, "push") == 0)
 	{
