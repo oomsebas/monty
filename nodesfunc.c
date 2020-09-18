@@ -20,7 +20,17 @@ void  push(dlistint_t **stack, unsigned int num)
  */
 void pall(dlistint_t **stack, __attribute__((unused))unsigned int num)
 {
-	print_dlistint(*stack);
+/*	print_dlistint(*stack);*/
+	stack_t *tmp;
+
+	if (stack == NULL)
+		exit(EXIT_FAILURE);
+	tmp = *stack;
+	while (tmp != NULL)
+	{
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
+	}
 }
 /**
  *pint - print the last push element of the stack
