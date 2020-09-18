@@ -29,6 +29,9 @@ void match_parameter(char *s, unsigned int val, unsigned int linenum)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"add", add_nodes},
+		{"swap",swap_nodes},
+		{"nop",nop},
 		{NULL, NULL}
 	};
 	void (*f)(dlistint_t **stack, unsigned int line_number);
@@ -46,7 +49,7 @@ void match_parameter(char *s, unsigned int val, unsigned int linenum)
 	}
 	if (options[i].opcode == NULL)
 		err(3, linenum, s);
-	if (strcmp("push",s) == 0)
+	if (strcmp("push", s) == 0)
 		f(&stack, val);
 	else
 		f(&stack, linenum);
@@ -102,7 +105,7 @@ void read_file(FILE *fd)
 	{
 		if (lineptr == NULL)
 			err(4);
-		else if ((chars == 1) & (strcmp("\n",lineptr) == 0))
+		else if ((chars == 1) & (strcmp("\n", lineptr) == 0))
 			continue;
 		get_cmd(lineptr, i);
 	}

@@ -62,4 +62,7 @@ void err(int error_code, ...);
 void err2(int error_code, ...);
 void string_err(int error_code, ...);
 void pop(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void swap_nodes(stack_t **stack, unsigned int line_number);
+void add_nodes(stack_t **stack, unsigned int line_number);
 #endif
