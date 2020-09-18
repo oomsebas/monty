@@ -9,27 +9,30 @@ void err(int error_code, ...)
 	va_list ag;
 	char *op;
 	int l_num;
+/*	char *tmp;*/
 
 	va_start(ag, error_code);
 	switch (error_code)
 	{
 	case 1:
-		printf("USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		break;
 	case 2:
-		printf("Error: Can't open file %s\n",
+		fprintf(stderr, "Error: Can't open file %s\n",
 		       va_arg(ag, char *));
 		break;
 	case 3:
 		l_num = va_arg(ag, int);
 		op = va_arg(ag, char *);
-		printf("L%d: unknown instruction %s\n", l_num, op);
+		fprintf(stderr, "L%d: unknown instruction %s\n", l_num, op);
 		break;
 	case 4:
-		printf("Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		break;
 	case 5:
-		printf("L%d: usage: push integer\n", va_arg(ag, int));
+		fprintf(stderr, "L%d: usage: push integer\n", va_arg(ag, int));
+/*		tmp = va_arg(ag, char *);
+		free(tmp);*/
 		break;
 	default:
 		break;
@@ -52,21 +55,17 @@ void err2(int error_code, ...)
 	switch (error_code)
 	{
 	case 6:
-		printf("L%d: can't pint, stack empty\n",
+		fprintf(stderr, "L%d: can't pint, stack empty\n",
 		       va_arg(ag, int));
 		break;
 	case 7:
-		printf("L%d: can't pop an empty stack\n",
+		fprintf(stderr, "L%d: can't pop an empty stack\n",
 		       va_arg(ag, int));
 		break;
 	case 8:
 		l_num = va_arg(ag, unsigned int);
 		op = va_arg(ag, char *);
-		printf("L%d: can't %s, stack too short\n", l_num, op);
-		break;
-	case 9:
-		printf("L%d: division by zero\n",
-		       va_arg(ag, unsigned int));
+		fprintf(stderr, "L%d: can't %s, stack too short\n", l_num, op);
 		break;
 	default:
 		break;

@@ -93,13 +93,13 @@ void get_cmd(char *lineptr, unsigned int linenum)
 	value = strtok(NULL, delim);
 	if (strcmp(opcode, "push") == 0)
 	{
+		if (value == NULL)
+			err(5, linenum);
 		if ((value != NULL) & (value[0] == '-'))
 		{
 			value = value + 1;
 			sign = -1;
 		}
-		if (value == NULL)
-			err(5, linenum);
 		for (i = 0; value[i] != '\0'; i++)
 		{
 			if (isdigit(value[i]) == 0)
